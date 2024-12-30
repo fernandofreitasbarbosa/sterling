@@ -1,2 +1,2 @@
 # sterling
-code to deploy sterling software
+I write here codes that I am using to deploy software mainly in Kubernetes or Red Hat OpenShit
