@@ -50,6 +50,12 @@ cd ibm-ssp-cm/ibm_cloud_pak/pak_extensions/pre-install/namespaceAdministration
 cd ibm-ssp-cm/ibm_cloud_pak/pak_extensions/pre-install/secret
 oc create -f ibm-ssp-cm-secret.yaml
 
+# Lets pusch the image to the OpenShift Registry
+oc patch configs.imageregistry.operator.openshift.io/cluster --patch '{"spec":{"defaultRoute":true}}' --type=merge
+HOST=$(oc get route default-route -n openshift-image-registry --template='{{ .spec.host }}')
+podman login -u $(oc whoami -t) -p $(oc whoami -t) --tls-verify=false $HOST
+podman tag cp.icr.io/cp/ibm-ssp-cm/ssp-cm-docker-image:6.2.0.0.01 $HOST/sspcm/cm:6.2.0.0.01
+podman push $HOST/sspcm/cm:6.2.0.0.01
 
 
 
