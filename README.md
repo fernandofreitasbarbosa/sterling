@@ -24,23 +24,23 @@ export ENTITLED_REGISTRY=cp.icr.io
 export ENTITLED_REGISTRY_USER=cp
 export ENTITLED_REGISTRY_KEY=<entitlement_key>
 
-#To donwload the image you can use this command
+# To donwload the image you can use this command
 podman login "$ENTITLED_REGISTRY" -u "$ENTITLED_REGISTRY_USER" -p "$ENTITLED_REGISTRY_KEY"
 
-#or you can create a secret in the your Kubernetes or OpenShift Cluster with this command to pull the images directly from the IBM Container Registry
+# or you can create a secret in the your Kubernetes or OpenShift Cluster with this command to pull the images directly from the IBM Container Registry
 kubectl/oc create secret docker-registry <any_name_for_the_secret> --docker-username=$ENTITLED_REGISTRY_USER --docker-password=$ENTITLED_REGISTRY_KEY --docker-email=<your_docker_email_address> --docker-server=$ENTITLED_REGISTRY -n <your namespace/project name>
 
-#After that update the helm chart image pull secret configurations using `image.imageSecrets` parameter with the above secret name
+# After that update the helm chart image pull secret configurations using `image.imageSecrets` parameter with the above secret name
 
 docker pull $SSP_CM_IMAGE
 
-#login to OpenShift Cluster
+# login to OpenShift Cluster
 oc login --token=sha256~hiGlIDe1mvbeyqfsfsfsfsfstbygRJ_dcQLuUv80 --server=https://c100-e.us-south.containers.cloud.ibm.com:31901
 
-#create a new project to deploy SSP CM
+# create a new project to deploy SSP CM
 oc new-project sspcm
 
-#creating the security context constrainsts
+# creating the security context constrainsts
 cd ibm-ssp-cm/ibm_cloud_pak/pak_extensions/pre-install/clusterAdministration
 ./createSecurityClusterPrereqs.sh
 cd ibm-ssp-cm/ibm_cloud_pak/pak_extensions/pre-install/namespaceAdministration
