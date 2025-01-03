@@ -46,6 +46,11 @@ cd ibm-ssp-cm/ibm_cloud_pak/pak_extensions/pre-install/clusterAdministration
 cd ibm-ssp-cm/ibm_cloud_pak/pak_extensions/pre-install/namespaceAdministration
 ./createSecurityNamespacePrereqs.sh sspcm
 
+# Creating Secrets
+cd ibm-ssp-cm/ibm_cloud_pak/pak_extensions/pre-install/secret
+oc create -f ibm-ssp-cm-secret.yaml
+
+
 
 
 
