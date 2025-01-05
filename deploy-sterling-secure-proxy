@@ -1,9 +1,0 @@
-# Deploy Sterling Secure Proxy Configuration Manager #
-
-Install the prerequirements
-- Helm
-- MS VS Code
-- OC or Kubectl
-
-
-
