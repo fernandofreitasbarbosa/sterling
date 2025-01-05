@@ -60,27 +60,7 @@ podman push $HOST/sspcm/cm:6.2.0.0.01
 # now we need need to edit the values.yaml file and fill the follow fieds.
 cp values.yaml override-ssp-cm.yaml
 vi override-ssp-cm.yaml
-license: true
 
-repository: "image-registry.openshift-image-registry.svc:5000/sspcm/cm"
-# to discover the secrets to pull the image from RedHat OpenShift Registry type oc describe sa default and select the value from the fied Image pull secrets to fill the field imageSecrets 
-imageSecrets: default-dockercfg-kf8g5
-secretName: "ibm-ssp-cm-secret"
-digest:
-    enabled: false
-persistentVolume:
-  # enabled is whether to use Persistent Volumes or not
-  enabled: true
-  # useDynamicProvisioning is whether or not to use Storage Classes to dynamically create Persistent Volumes 
-  useDynamicProvisioning: true   
-storageClassName: "ibmc-block-gold"
-
-resources:
-  limits:
-    cpu: 4000m
-    memory: 2Gi
-    ephemeral-storage: "5Gi"
-  
 helm install ssp62-cm -f override-ssp-cm.yaml  --debug .
 
 # open the web browser type the url
