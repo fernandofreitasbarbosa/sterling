@@ -5,7 +5,7 @@ Install the prerequirements software
 - Helm
 - MS VSCode
 - OC or Kubectl command line tools
-- Podman or Docker to pull and push the images
+- Podman to pull and push the images
 
 # Deploying the Sterling Secure Proxy Configuration Manager 
 
@@ -32,7 +32,7 @@ kubectl/oc create secret docker-registry <any_name_for_the_secret> --docker-user
 
 # After that update the helm chart image pull secret configurations using `image.imageSecrets` parameter with the above secret name
 
-docker pull $SSP_CM_IMAGE
+podman pull $SSP_CM_IMAGE
 
 # login to OpenShift Cluster
 oc login --token=sha256~hiGlIDe1mvbeyqfsfsfsfsfstbygRJ_dcQLuUv80 --server=https://c100-e.us-south.containers.cloud.ibm.com:31901
@@ -57,12 +57,34 @@ podman login -u $(oc whoami -t) -p $(oc whoami -t) --tls-verify=false $HOST
 podman tag cp.icr.io/cp/ibm-ssp-cm/ssp-cm-docker-image:6.2.0.0.01 $HOST/sspcm/cm:6.2.0.0.01
 podman push $HOST/sspcm/cm:6.2.0.0.01
 
+# now we need need to edit the values.yaml file and fill the follow fieds.
+cp values.yaml override-ssp-cm.yaml
+vi override-ssp-cm.yaml
+license: true
 
+repository: "image-registry.openshift-image-registry.svc:5000/sspcm/cm"
+# to discover the secrets to pull the image from RedHat OpenShift Registry type oc describe sa default and select the value from the fied Image pull secrets to fill the field imageSecrets 
+imageSecrets: default-dockercfg-kf8g5
+secretName: "ibm-ssp-cm-secret"
+digest:
+    enabled: false
+persistentVolume:
+  # enabled is whether to use Persistent Volumes or not
+  enabled: true
+  # useDynamicProvisioning is whether or not to use Storage Classes to dynamically create Persistent Volumes 
+  useDynamicProvisioning: true   
+storageClassName: "ibmc-block-gold"
 
+resources:
+  limits:
+    cpu: 4000m
+    memory: 2Gi
+    ephemeral-storage: "5Gi"
+  
+helm install ssp62-cm -f override-ssp-cm.yaml  --debug .
 
-
-
-
+# open the web browser type the url
+https://ssp62-cm-ibm-ssp-cm-sspcm.ffb-wks-sterling-dal12-c3-8c1e167e9d701a9f52a0a22606bde374-0000.us-south.containers.appdomain.cloud
 
 # Deploying the Sterling Secure Proxy Engine 
 
