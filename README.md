@@ -123,7 +123,9 @@ kubectl create secret generic engine-key-cert --from-file=keyCert=/ibm-ssp-cm/de
 # Lets push the image to the OpenShift Registry
 HOST=$(oc get route default-route -n openshift-image-registry --template='{{ .spec.host }}')
 podman login -u $(oc whoami -t) -p $(oc whoami -t) --tls-verify=false $HOST
+
 podman tag cp.icr.io/cp/ibm-ssp-engine/ssp-engine-docker-image:6.2.0.0.01 $HOST/sspengine/engine:6.2.0.0.01
+
 podman push $HOST/sspengine01/engine:6.2.0.0.01
 
 # now we need need to edit the values.yaml file and fill the follow fieds.
@@ -134,7 +136,7 @@ cp values.yaml override-ssp-engine.yaml
 oc describe sa default
 vi override-ssp-engine.yaml
 
-helm install sspengine01 -f override-ssp-cm.yaml  --debug .
+helm install sspengine -f override-ssp-engine.yaml --debug .
 
 
 # Deploying the Sterling External Authentication Server 
