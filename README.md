@@ -4,7 +4,7 @@ I write here codes that I am using to deploy Sterling Secure Proxy mainly in Red
 Install the prerequirements software
 - Helm
 - MS VSCode
-- OC command line tool
+- OC and kubectl command line tool
 - Podman to pull and push the images
 
 # Deploying the Sterling Secure Proxy Configuration Manager 
@@ -28,7 +28,7 @@ export ENTITLED_REGISTRY_KEY=<entitlement_key>
 podman login "$ENTITLED_REGISTRY" -u "$ENTITLED_REGISTRY_USER" -p "$ENTITLED_REGISTRY_KEY"
 
 # or you can create a secret in the your Kubernetes or OpenShift Cluster with this command to pull the images directly from the IBM Container Registry
-kubectl/oc create secret docker-registry <any_name_for_the_secret> --docker-username=$ENTITLED_REGISTRY_USER --docker-password=$ENTITLED_REGISTRY_KEY --docker-email=<your_docker_email_address> --docker-server=$ENTITLED_REGISTRY -n <your namespace/project name>
+kubectl create secret docker-registry <any_name_for_the_secret> --docker-username=$ENTITLED_REGISTRY_USER --docker-password=$ENTITLED_REGISTRY_KEY --docker-email=<your_docker_email_address> --docker-server=$ENTITLED_REGISTRY -n <your namespace/project name>
 # After that update the helm chart image pull secret configurations using `image.imageSecrets` parameter with the above secret name in your values.yaml file
 
 # If not you need to pull the image and push to the registry. In my I'll use the Red Hat OpenShift Registry
@@ -95,7 +95,7 @@ export ENTITLED_REGISTRY_KEY=<entitlement_key>
 podman login "$ENTITLED_REGISTRY" -u "$ENTITLED_REGISTRY_USER" -p "$ENTITLED_REGISTRY_KEY"
 
 # or you can create a secret in the your Kubernetes or OpenShift Cluster with this command to pull the images directly from the IBM Container Registry
-kubectl/oc create secret docker-registry <any_name_for_the_secret> --docker-username=$ENTITLED_REGISTRY_USER --docker-password=$ENTITLED_REGISTRY_KEY --docker-email=<your_docker_email_address> --docker-server=$ENTITLED_REGISTRY -n <your namespace/project name>
+kubectl create secret docker-registry <any_name_for_the_secret> --docker-username=$ENTITLED_REGISTRY_USER --docker-password=$ENTITLED_REGISTRY_KEY --docker-email=<your_docker_email_address> --docker-server=$ENTITLED_REGISTRY -n <your namespace/project name>
 
 # After that update the helm chart image pull secret configurations using `image.imageSecrets` parameter with the above secret name
 # If not you need to pull the image and push to the registry. In my I'll use the Red Hat OpenShift Registry
@@ -159,7 +159,7 @@ export ENTITLED_REGISTRY_KEY=<entitlement_key>
 podman login "$ENTITLED_REGISTRY" -u "$ENTITLED_REGISTRY_USER" -p "$ENTITLED_REGISTRY_KEY"
 
 #or you can create a secret in the your Kubernetes or OpenShift Cluster with this command to pull the images directly from the IBM Container Registry
-kubectl/oc create secret docker-registry <any_name_for_the_secret> --docker-username=$ENTITLED_REGISTRY_USER --docker-password=$ENTITLED_REGISTRY_KEY --docker-email=<your_docker_email_address> --docker-server=$ENTITLED_REGISTRY -n <your namespace/project name>
+kubectl create secret docker-registry <any_name_for_the_secret> --docker-username=$ENTITLED_REGISTRY_USER --docker-password=$ENTITLED_REGISTRY_KEY --docker-email=<your_docker_email_address> --docker-server=$ENTITLED_REGISTRY -n <your namespace/project name>
 
 #After that update the helm chart image pull secret configurations using `image.imageSecrets` parameter with the above secret name
 
