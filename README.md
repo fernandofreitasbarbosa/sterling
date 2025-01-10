@@ -35,7 +35,7 @@ kubectl create secret docker-registry <any_name_for_the_secret> --docker-usernam
 podman pull $SSP_CM_IMAGE
 
 # login to OpenShift Cluster
-oc login --token=sha256~hiGlIDe1mvbeyqfsfsfsfsfstbygRJ_dcQLuUv80 --server=https://c100-e.us-south.containers.cloud.ibm.com:31901
+oc login --token=sha256~hiGlIDe1mvbeyqfsfsfsfsfstbygRJ_dcQLuUv80 --server=https://c100-e.usdfsdfsouth.containers.cloud.ibm.com:31901
 
 # create a new project to deploy SSP CM
 oc new-project sspcm
