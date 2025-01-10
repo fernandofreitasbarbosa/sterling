@@ -1,5 +1,5 @@
 # Sterling Secure Proxy
-I write here codes that I am using to deploy Sterling Secure Proxy mainly in Red Hat OpenShit
+I wrote here some code to deploy Sterling Secure Proxy mainly in Red Hat OpenShit
 
 Install the prerequirements software
 - Helm
